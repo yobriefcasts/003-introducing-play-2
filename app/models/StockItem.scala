@@ -52,5 +52,8 @@ object Stocklist {
 
   def delete(id: Int) = stock remove stock.indexWhere(_.id == id)
 
-  private def nextId = stock.sortBy(_.id).last.id + 1
+  private def nextId = stock.sortBy(_.id).lastOption match {
+    case None => 0
+    case Some(item) => item.id + 1
+  }
 }
